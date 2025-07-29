@@ -1,0 +1,17 @@
+services:
+  dokploy-templates:
+    image: node:20-alpine
+    working_dir: /app
+    command: ["npm", "start", "git clone github.com/Daniel-OS01/Dokploy-template.git"]
+    environment:
+      - NODE_ENV=${NODE_ENV-production}
+      - ADMIN_EMAIL=${ADMIN_EMAIL-admin@example.com}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD-MyC0mpl3xP@ssw0rd!}
+    volumes:
+      - ../files/dokploy-templates:/app
+    ports:
+      - "3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dokploy-templates.rule=Host(`dokploy-templates-7a3-129-159-144-91.traefik.me`)"
+      - "traefik.http.services.dokploy-templates.loadbalancer.server.port=3000"
