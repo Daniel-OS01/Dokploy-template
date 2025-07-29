@@ -1,6 +1,7 @@
 services:
   dokploy-templates:
     image: node:20-alpine
+        working_dir: ./app
     command: ["npm", "start", "git clone github.com/Daniel-OS01/Dokploy-template.git"]
     environment:
       - NODE_ENV=${NODE_ENV-production}
